@@ -1,0 +1,12 @@
+﻿@model IEnumerable<FundraiserDto>
+
+<h3>All available fundraisers</h3>
+@foreach (var fund in Model)
+{
+    <div>
+        <h2>@fund.Name</h2>
+        <h4>@fund.Amount</h4>
+        <h4>@fund.CurrentTotal</h4>
+        <h4>@fund.CreatedDate.ToString("d")</h4>
+    </div>
+}
