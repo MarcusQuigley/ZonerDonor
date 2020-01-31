@@ -9,20 +9,20 @@ using ZonerDonor.Services;
 
 namespace ZonerDonor.Controllers
 {
-    public class HomeController : Controller
+    public class FundraisersController : Controller
     {
         readonly IFundraiserRepository fundraiserService;
         readonly IMapper mapper;
-        public HomeController(IFundraiserRepository fundraiserService, IMapper mapper)
+        public FundraisersController(IFundraiserRepository fundraiserService, IMapper mapper)
         {
             this.fundraiserService = fundraiserService ?? throw new ArgumentNullException(nameof(fundraiserService));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        } 
+        }
 
         public async Task<IActionResult> Index()
         {
-            var funds = await fundraiserService.GetLatestFundraisersAsync();
-            return View(mapper.Map<IEnumerable<FundraiserDto>>(funds));
+            var results =await fundraiserService.GetFundraisersAsync();
+            return View(mapper.Map<IEnumerable<FundraiserDto>>(results));
         }
     }
 }
