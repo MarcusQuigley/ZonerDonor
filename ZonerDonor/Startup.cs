@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,17 +23,21 @@ namespace ZonerDonor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<IFundraiserRepository, MockFundraiserRepository>();
-            services.AddScoped<IDonorRepository, MockDonorRepository>();
-            services.AddScoped<IDonationRepository, MockDonationRepository>();
+            //services.AddScoped<IFundraiserRepository, MockFundraiserRepository>();
+            //services.AddScoped<IDonorRepository, MockDonorRepository>();
+            //services.AddScoped<IDonationRepository, MockDonationRepository>();
+            services.AddScoped<IFundraiserRepository, FundraiserRepository>();
+            services.AddScoped<IDonorRepository, DonorRepository>();
+            services.AddScoped<IDonationRepository, DonationRepository>();
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
-          //  services.AddMvc().AddRazorRuntimeCompilation();
-            services.AddDbContext<FundContext>();
+             services.AddDbContext<FundContext>(options=> {
+                var connString = Configuration.GetConnectionString("DbConnection");
+                options.UseSqlServer(connString);
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
