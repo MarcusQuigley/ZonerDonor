@@ -4,7 +4,9 @@
 @foreach (var fund in Model)
 {
     <div>
-        <h2>@fund.Name</h2>
+        <h2>
+            <a asp-controller="Fundraiser" asp-action="Index" asp-route-id="@fund.Id" >@fund.Name</a>
+        </h2>
         <h4>@fund.Amount</h4>
         <h4>@fund.CurrentTotal</h4>
         <h4>@fund.CreatedDate.ToString("d")</h4>

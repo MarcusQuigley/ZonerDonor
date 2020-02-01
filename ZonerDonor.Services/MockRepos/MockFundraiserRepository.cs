@@ -51,6 +51,12 @@ namespace ZonerDonor.Services.MockRepos
             throw new NotImplementedException();
         }
 
+        public async Task<Fundraiser> GetFundraiserAsync(Guid fundId)
+        {
+            await Task.Delay(1000);
+            return Fundraisers.FirstOrDefault(f => f.Id == fundId);
+        }
+
         //protected virtual void Dispose(bool disposing)
         //{
         //    //if (disposing)
