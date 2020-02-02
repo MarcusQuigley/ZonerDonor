@@ -25,11 +25,16 @@ namespace ZonerDonor.Controllers
             return View(mapper.Map<IEnumerable<FundraiserDto>>(results));
         }
 
-        public async Task<IActionResult> Detail(Guid id)
-        {
-            var fundraiser = await fundraiserService.GetFundraiserAsync(id);
-            return View(mapper.Map<FundraiserDto>(fundraiser));
+        //public async Task<IActionResult> Detail(Guid id)
+        //{
+        //    var fundraiser = await fundraiserService.GetFundraiserAsync(id);
+        //    return View(mapper.Map<FundraiserDto>(fundraiser));
 
-        }
+        //}
+
+        //public IActionResult Create( )
+        //{
+        //    return View();
+        //}
     }
 }

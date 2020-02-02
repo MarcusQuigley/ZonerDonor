@@ -9,20 +9,22 @@ using ZonerDonor.Services;
 using Models = ZonerDonor.Core.Models;
 namespace ZonerDonor.Controllers
 {
-    public class DonateController : Controller
+    public class DonationController : Controller
     {
         readonly IDonationRepository donationService;
+        readonly IDonorRepository donorService;
         readonly IMapper mapper;
-        public DonateController(IDonationRepository donationService, IMapper mapper)
+        public DonationController(IDonationRepository donationService, IDonorRepository donorService, IMapper mapper)
         {
             this.donationService = donationService ?? throw new ArgumentNullException(nameof(donationService));
+            this.donorService = donorService ?? throw new ArgumentNullException(nameof(donorService));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [BindProperty]
         public DonationDto  Donation { get; set; }
 
-        public IActionResult Donate(Guid id)
+        public IActionResult Create(Guid id)
         {
             Donation = new DonationDto()
             {
@@ -33,12 +35,15 @@ namespace ZonerDonor.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Donate()//DonationDto donationDto)
+        public async Task<IActionResult> Create()//DonationDto donationDto)
         {
             if (Donation == null)
             {
                 throw new ArgumentNullException(nameof(Donation));
             }
+            Donation.DonationDate = DateTimeOffset.Now;
+            Donation.DonorId = await GetDonorId();
+
             var donation = mapper.Map<Models.Donation>(Donation);
             if (ModelState.IsValid)
             {
@@ -53,6 +58,16 @@ namespace ZonerDonor.Controllers
         {
             ViewBag.Confirmation = "Bingo!";
             return View();
+        }
+
+        private async Task<Guid> GetDonorId()
+        {
+            var donors = await donorService.GetDonorsAsync();
+            if (!donors.Any())
+            {
+                throw new InvalidOperationException("No donors exist");
+            }
+            return donors.FirstOrDefault().Id;
         }
 
     }

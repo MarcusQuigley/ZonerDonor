@@ -1,0 +1,10 @@
+﻿@model FundraiserDto
+    <div class="lead">
+        <h2>@Model.Name</h2>
+        <h2>@Model.Amount</h2>
+        <h2>@Model.CurrentTotal</h2>
+
+        <div>
+            <a class="btn btn-primary" asp-controller="Donation" asp-action="Create" asp-route-id="@Model.Id">Donate!!!!</a>
+        </div>
+    </div>
