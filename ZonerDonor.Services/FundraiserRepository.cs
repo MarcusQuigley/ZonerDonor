@@ -24,6 +24,11 @@ namespace ZonerDonor.Services
             context.Fundraisers.Add(fundraiser);
         }
 
+        public async Task<Fundraiser> GetFundraiserAsync(Guid fundId)
+        {
+            return await context.Fundraisers.FirstOrDefaultAsync(f => f.Id == fundId);
+        }
+
         public async Task<IEnumerable<Fundraiser>> GetFundraisersAsync()
         {
             return await context.Fundraisers.ToArrayAsync();

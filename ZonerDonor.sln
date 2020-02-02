@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZonerDonor", "ZonerDonor\ZonerDonor.csproj", "{2DF7302A-25F0-42A2-AE16-BFE2AC9E2599}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZonerDonor", "ZonerDonor\ZonerDonor.csproj", "{2DF7302A-25F0-42A2-AE16-BFE2AC9E2599}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZonerDonor.Core", "ZonerDonor.Core\ZonerDonor.Core.csproj", "{9E4F58DE-AAC0-415F-B146-3C6088A74812}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZonerDonor.Core", "ZonerDonor.Core\ZonerDonor.Core.csproj", "{9E4F58DE-AAC0-415F-B146-3C6088A74812}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZonerDonor.Services", "ZonerDonor.Services\ZonerDonor.Services.csproj", "{844AABC2-08E0-4190-8508-B8C14DE943A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZonerDonor.Services", "ZonerDonor.Services\ZonerDonor.Services.csproj", "{844AABC2-08E0-4190-8508-B8C14DE943A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

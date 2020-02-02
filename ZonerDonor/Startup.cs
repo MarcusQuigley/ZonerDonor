@@ -22,6 +22,10 @@ namespace ZonerDonor
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<FundContext>(options => {
+                var connString = Configuration.GetConnectionString("DbConnection");
+                options.UseSqlServer(connString);
+            });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //services.AddScoped<IFundraiserRepository, MockFundraiserRepository>();
             //services.AddScoped<IDonorRepository, MockDonorRepository>();
@@ -31,10 +35,7 @@ namespace ZonerDonor
             services.AddScoped<IDonationRepository, DonationRepository>();
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
-             services.AddDbContext<FundContext>(options=> {
-                var connString = Configuration.GetConnectionString("DbConnection");
-                options.UseSqlServer(connString);
-            });
+           
         }
 
          public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,6 +55,7 @@ namespace ZonerDonor
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
     }
 }
