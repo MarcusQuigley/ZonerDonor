@@ -16,8 +16,8 @@ namespace ZonerDonor.Services
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Donation>()
-                .HasKey(c => new { c.FundraiserId, c.DonorId });
+            //modelBuilder.Entity<Donation>()
+            //    .HasKey(c => new { c.FundraiserId, c.DonorId });
 
             var donorId = Guid.NewGuid();
             var fundId = Guid.NewGuid();
@@ -39,6 +39,7 @@ namespace ZonerDonor.Services
 
             modelBuilder.Entity<Donation>().HasData(new Donation
             {
+                Id = Guid.NewGuid(),
                 FundraiserId = fundId,
                 DonorId = donorId,
                 Amount = 40,

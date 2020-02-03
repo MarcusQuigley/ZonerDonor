@@ -5,6 +5,7 @@ namespace ZonerDonor.Entities
 {
     public class DonationDto
     {
+        public Guid Id { get; set; }
         public Guid FundraiserId { get; set; }
         public Guid DonorId { get; set; }
         [Required]

@@ -1,0 +1,31 @@
+﻿@model DonationCreateViewModel
+<h2>INDEX creating a donation!</h2>
+
+<form method="post" class="form-horizontal" asp-action="Create">
+    <input type="hidden" asp-for="Donation.FundraiserId" />
+    @{ 
+        var hasFundraisers = Model.Fundraisers != null;
+    }
+    <div class="form-group">
+            <if include-if="hasFundraisers">
+                <div>
+                    <label asp-for="Fundraisers" class="col-md-2 control-label"></label>
+                    <div class="col-md-4">
+                        <select asp-for="FundraiserId" asp-items="Model.Fundraisers" class="form-control"></select>
+                        <span asp-validation-for="Fundraisers" class="text-danger"></span>
+                    </div>
+                </div>
+            </if>
+
+            <label asp-for="Donation.Amount" class="col-md-2 control-label"></label>
+            <div class="col-md-4">
+                <input asp-for="Donation.Amount" class="form-control" />
+                <span asp-validation-for="Donation.Amount" class="text-danger"></span>
+            </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-5">
+            <button class="btn btn-primary" type="submit">Donate</button>
+        </div>
+    </div>
+</form>

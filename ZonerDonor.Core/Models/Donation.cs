@@ -6,6 +6,8 @@ namespace ZonerDonor.Core.Models
 {
     public class Donation
     {
+        [Key]
+        public Guid Id { get; set; }
         public Guid FundraiserId { get; set; }
         public Guid DonorId { get; set; }
         [Column(TypeName = "decimal(18,4)")]
