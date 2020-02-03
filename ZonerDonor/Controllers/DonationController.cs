@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZonerDonor.Entities;
 using ZonerDonor.Services;
+using ZonerDonor.ViewModels;
 using Models = ZonerDonor.Core.Models;
 namespace ZonerDonor.Controllers
 {
@@ -24,44 +26,57 @@ namespace ZonerDonor.Controllers
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        [BindProperty]
-        public DonationDto  Donation { get; set; }
-
-        public IEnumerable<FundraiserDto> Fundraisers { get; set; }
-
-        public async Task<IActionResult> Index(Guid id)
+        //[BindProperty]
+        //public DonationDto  Donation { get; set; }
+      //  [BindProperty]
+    //    public IEnumerable<FundraiserDto> Fundraisers { get; set; }
+    public void fer(int? xx)
         {
-            Donation = new DonationDto();
-            if (id != Guid.Empty)
+
+        }
+
+        public async Task<IActionResult> Index(Guid? id)
+        {
+            DonationCreateViewModel vm = new DonationCreateViewModel();
+         //   Donation = new DonationDto();
+            vm.Donation = new DonationDto();
+            if (id.HasValue)// != Guid.Empty)
             {
-                Donation.FundraiserId = id;
+                vm.Donation.FundraiserId = id.Value;
             }
             else
             {
                 var results = await fundraiserService.GetFundraisersAsync();
-                Fundraisers = mapper.Map<IEnumerable<FundraiserDto>>(results);
+                //Fundraisers = mapper.Map<IEnumerable<FundraiserDto>>(results);
+                vm.Fundraisers = mapper.Map<IEnumerable<FundraiserDto>>(results)
+                                        .Select(f => new SelectListItem { Text = f.Name, Value = f.Id.ToString() })
+                                        .ToList();
             }
-            return View(Donation);
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create()//DonationDto donationDto)
+        public async Task<IActionResult> Create(DonationCreateViewModel vm)//DonationDto donationDto)
         {
-            if (Donation == null)
+            if (vm == null)
             {
-                throw new ArgumentNullException(nameof(Donation));
+                throw new ArgumentNullException(nameof(vm));
             }
-            Donation.DonationDate = DateTimeOffset.Now;
-            Donation.DonorId = await GetDonorId();
+            vm.Donation.DonationDate = DateTimeOffset.Now;
+            vm.Donation.DonorId = await GetDonorId();
+            if (vm.Donation.FundraiserId == Guid.Empty)
+            {
+                vm.Donation.FundraiserId = vm.FundraiserId;
+            }
 
-            var donation = mapper.Map<Models.Donation>(Donation);
+            var donation = mapper.Map<Models.Donation>(vm.Donation);
             if (ModelState.IsValid)
             {
                 donationService.AddDonation(donation);
                 await donationService.SaveChangesAsync();
                 return RedirectToAction("DonateComplete");
             }
-            return View(Donation);
+            return View(vm);
              
         }
         public IActionResult DonateComplete()
