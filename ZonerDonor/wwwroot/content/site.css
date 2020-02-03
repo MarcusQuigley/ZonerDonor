@@ -56,8 +56,20 @@ footer {
     margin: 50px 0;
 }
 
+.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: inline-block;
+}
+
 .navbar {
+    float:top;
     background-image: none;
+    width: 100%;
+    /*height: 30px;*/
+    display: inline-block;
 }
 
 .navbar-inverse {
@@ -95,4 +107,24 @@ footer {
 .btn {
     background-color: #fcaeae !important;
     border-color: #fba1a1 !important;
+}
+
+li {
+    float: left;
+    display: inline-block;
+}
+
+a:link, a:visited {
+    /*width: 182.8px;*/
+    /*line-height: 30px;*/
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 4px;
+    padding-left: 5px;
+    text-decoration: none;
+    text-align: center;
+    /*background-color: #006b00;*/
+    /*color: white;*/
+    /*font-weight: bold;*/
+    /*float: left;*/
 }

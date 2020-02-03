@@ -1,0 +1,21 @@
+﻿@model DonationDto
+<h2>INDEX creating a donation!</h2>
+
+<form method="post" class="form-horizontal" asp-action="Create">
+    <input type="text" asp-for="FundraiserId" />
+
+    <div class="form-group">
+        <label asp-for="Amount" class="col-md-2 control-label"></label>
+        <div class="col-md-4">
+            <input asp-for="Amount" class="form-control" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-5">
+            <button class="btn btn-primary" type="submit">Donate</button>
+        </div>
+    </div>
+</form>

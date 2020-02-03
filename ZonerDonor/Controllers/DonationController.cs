@@ -12,11 +12,14 @@ namespace ZonerDonor.Controllers
     public class DonationController : Controller
     {
         readonly IDonationRepository donationService;
+        readonly IFundraiserRepository fundraiserService;
         readonly IDonorRepository donorService;
         readonly IMapper mapper;
-        public DonationController(IDonationRepository donationService, IDonorRepository donorService, IMapper mapper)
+        public DonationController(IDonationRepository donationService, IFundraiserRepository fundraiserService, 
+                                IDonorRepository donorService, IMapper mapper)
         {
             this.donationService = donationService ?? throw new ArgumentNullException(nameof(donationService));
+            this.fundraiserService = fundraiserService ?? throw new ArgumentNullException(nameof(fundraiserService));
             this.donorService = donorService ?? throw new ArgumentNullException(nameof(donorService));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
@@ -24,13 +27,20 @@ namespace ZonerDonor.Controllers
         [BindProperty]
         public DonationDto  Donation { get; set; }
 
-        public IActionResult Create(Guid id)
+        public IEnumerable<FundraiserDto> Fundraisers { get; set; }
+
+        public async Task<IActionResult> Index(Guid id)
         {
-            Donation = new DonationDto()
+            Donation = new DonationDto();
+            if (id != Guid.Empty)
             {
-                FundraiserId = id
-            };
-            
+                Donation.FundraiserId = id;
+            }
+            else
+            {
+                var results = await fundraiserService.GetFundraisersAsync();
+                Fundraisers = mapper.Map<IEnumerable<FundraiserDto>>(results);
+            }
             return View(Donation);
         }
 
