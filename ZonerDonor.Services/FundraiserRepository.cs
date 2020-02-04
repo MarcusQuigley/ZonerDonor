@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZonerDonor.Core.Models;
+using ZonerDonor.Utils.Extensions;
 
 namespace ZonerDonor.Services
 {
@@ -29,6 +30,15 @@ namespace ZonerDonor.Services
             return await context.Fundraisers.FirstOrDefaultAsync(f => f.Id == fundId);
         }
 
+        public async Task<Fundraiser> GetRandomFundraiserAsync()
+        {
+            int count = await CountAsync();
+            return await context.Fundraisers 
+                                     .Skip(count.RandomNumberLessThan())
+                                     //.Take(1)
+                                     .FirstAsync();
+        }
+ 
         public async Task<IEnumerable<Fundraiser>> GetFundraisersAsync()
         {
             return await context.Fundraisers.ToArrayAsync();
@@ -57,5 +67,10 @@ namespace ZonerDonor.Services
             context.Fundraisers.Update(fundraiser);
             await context.SaveChangesAsync();
         }
-    }
+
+        public async Task<int> CountAsync()
+        {
+            return await context.Fundraisers.CountAsync();
+        }
+     }
 }

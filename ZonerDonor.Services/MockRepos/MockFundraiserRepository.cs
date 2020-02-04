@@ -69,6 +69,9 @@ namespace ZonerDonor.Services.MockRepos
            
         }
 
-
+        public Task<Fundraiser> GetRandomFundraiserAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

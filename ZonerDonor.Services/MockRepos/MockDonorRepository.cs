@@ -58,5 +58,10 @@ namespace ZonerDonor.Services.MockRepos
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public Task<Donor> GetRandomDonorAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace ZonerDonor.Services
     public interface IDonorRepository
     {
         void AddDonor(Donor donor);
+        Task<Donor> GetRandomDonorAsync();
         Task<IEnumerable<Donor>> GetDonorsAsync();
         Task<bool> SaveChangesAsync();
     }
