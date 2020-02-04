@@ -1,6 +1,6 @@
 ﻿@model FundTotalSummaryViewModel
 <div class="form">
-    <h3>@Model.Fundraiser.PercentComplete.ToString("p") of our goal has been reached</h3>
+    <h3>@Model.Fundraiser.PercentComplete% of our goal has been reached</h3>
     <h3>@Model.Donations.Count() donors have contributed</h3>
     <div>
         @foreach (var donation in Model.Donations)

@@ -57,23 +57,17 @@ namespace ZonerDonor.Services.MockRepos
             return Fundraisers.FirstOrDefault(f => f.Id == fundId);
         }
 
-        //protected virtual void Dispose(bool disposing)
-        //{
-        //    //if (disposing)
-        //    //{
-        //    //    if (dbContext == null)
-        //    //    {
-        //    //        dbContext.Dispose();
-        //    //        dbContext = null;
-        //    //    }
-        //    //}
-        //}
-
-        //public void Dispose()
-        //{
-        //    Dispose(true);
-        //    GC.SuppressFinalize(this);
-        //}
+        public async Task UpdateFundTotalAsync(Guid fundId, decimal donationAmount)
+        {
+            var fundraiser = await GetFundraiserAsync(fundId);
+            if (fundraiser == null)
+            {
+                throw new ArgumentException("Fund does not exist");
+            }
+            fundraiser.UpdateTotal(donationAmount);
+         //   context.Fundraisers.Update(fundraiser);
+           
+        }
 
 
     }

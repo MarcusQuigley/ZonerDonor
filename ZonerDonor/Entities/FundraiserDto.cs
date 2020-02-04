@@ -13,12 +13,6 @@ namespace ZonerDonor.Entities
         public decimal CurrentTotal { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
 
-        public int PercentComplete => ((int)(CurrentTotal / Amount)) * 100;
-        //{
-        //    get
-        //    {
-        //        return ((int)(CurrentTotal / Amount)) * 100;
-        //    }
-        //}
-    }
+        public int PercentComplete => Convert.ToInt32((CurrentTotal / Amount) * 100);
+        }
 }
