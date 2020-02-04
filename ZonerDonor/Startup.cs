@@ -33,6 +33,7 @@ namespace ZonerDonor
             services.AddScoped<IFundraiserRepository, FundraiserRepository>();
             services.AddScoped<IDonorRepository, DonorRepository>();
             services.AddScoped<IDonationRepository, DonationRepository>();
+            services.AddHostedService<GenerateDonationsService>();
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
            
