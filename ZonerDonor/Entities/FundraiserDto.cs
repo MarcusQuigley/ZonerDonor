@@ -12,5 +12,13 @@ namespace ZonerDonor.Entities
         public decimal Amount { get; set; }
         public decimal CurrentTotal { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
+
+        public int PercentComplete => ((int)(CurrentTotal / Amount)) * 100;
+        //{
+        //    get
+        //    {
+        //        return ((int)(CurrentTotal / Amount)) * 100;
+        //    }
+        //}
     }
 }
