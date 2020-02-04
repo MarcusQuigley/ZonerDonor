@@ -45,5 +45,17 @@ namespace ZonerDonor.Services
         {
             return (await context.SaveChangesAsync() > 0);
         }
+
+        public async Task UpdateFundTotalAsync(Guid fundId, decimal donationAmount)
+        {
+            var fundraiser = await GetFundraiserAsync(fundId);
+            if (fundraiser == null)
+            {
+                throw new ArgumentException("Fund does not exist");
+            }
+            fundraiser.UpdateTotal(donationAmount);
+            context.Fundraisers.Update(fundraiser);
+            await context.SaveChangesAsync();
+        }
     }
 }

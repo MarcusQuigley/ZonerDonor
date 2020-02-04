@@ -1,0 +1,12 @@
+﻿@model FundTotalSummaryViewModel
+<div class="form">
+    <h3>@Model.Fundraiser.PercentComplete% of our goal has been reached</h3>
+    <h3>@Model.Donations.Count() donors have contributed</h3>
+    <div>
+        @foreach (var donation in Model.Donations)
+        {
+            <h4>@donation.DonorId</h4>
+            <h4>@donation.Amount.ToString("c")</h4><h4>@donation.DonationDate</h4>
+        }
+    </div>
+</div>

@@ -63,6 +63,7 @@ namespace ZonerDonor.Controllers
             {
                 donationService.AddDonation(donation);
                 await donationService.SaveChangesAsync();
+                await fundraiserService.UpdateFundTotalAsync(vm.Donation.FundraiserId, vm.Donation.Amount);
                 return RedirectToAction("DonateComplete");
             }
             return View(vm);

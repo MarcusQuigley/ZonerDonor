@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-
+ 
 namespace ZonerDonor.Core.Models
 {
     public class Fundraiser
@@ -12,5 +12,10 @@ namespace ZonerDonor.Core.Models
         [Column(TypeName = "decimal(18,4)")]
         public decimal CurrentTotal { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
+
+        public void UpdateTotal(decimal donationAmount)
+        {
+            CurrentTotal += donationAmount;
+        }
     }
 }

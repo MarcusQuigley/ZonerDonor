@@ -1,24 +1,12 @@
-﻿@model IEnumerable<ZonerDonor.Entities.FundraiserDto>
+﻿@model IEnumerable<FundraiserDto>
 <h3>Welcome to Zonor Donor</h3>
 @foreach (var fund in Model)
 {
-    <div class="col-sm-10 col-lg-10 col-md-10">
-        <div class="card">
-            <h2>
-                <a asp-controller="Fundraiser" asp-action="Detail" asp-route-id="@fund.Id">@fund.Name</a>
-            </h2>
-            <h4>$@fund.CurrentTotal raised of $@fund.Amount goal</h4>
-           
-           
-            <h5>Created on @fund.CreatedDate.ToString("d")</h5>
-
-        </div>
-    </div>
-}
+    <partial model="fund" name="..\Fundraiser\_FundraiserSummary"/>
+  }
 <br />
 <div class="form-group">
     <div class="col-md-offset-2 col-md-5">
         <a class="btn btn-primary" asp-controller="Fundraiser" asp-action="Create">Create Fundraiser</a>
     </div>
 </div>
- 
