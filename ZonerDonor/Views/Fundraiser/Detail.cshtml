@@ -1,9 +1,10 @@
 ﻿@model FundraiserDto
-    <div class="lead">
-        <h2>@Model.Name</h2>
-        <h4>$@Model.CurrentTotal raised of $@Model.Amount goal</h4>
-
-        <div>
-            <a class="btn btn-primary" asp-controller="Donation" asp-action="Index" asp-route-id="@Model.Id">Donate!!!!</a>
+   
+        <div class="card col-sm-10 col-lg-10 col-md-10">
+            <h2>@Model.Name</h2>
+            <h4>@Model.CurrentTotal.ToString("c") raised of @Model.Amount.ToString("c") goal</h4>
+            <div>
+                <a class="btn btn-primary" asp-controller="Donation" asp-action="Index" asp-route-id="@Model.Id">Donate!!!!</a>
+            </div>
         </div>
-    </div>
+  
