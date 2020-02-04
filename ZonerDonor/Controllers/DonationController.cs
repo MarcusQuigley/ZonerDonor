@@ -17,7 +17,7 @@ namespace ZonerDonor.Controllers
         readonly IFundraiserRepository fundraiserService;
         readonly IDonorRepository donorService;
         readonly IMapper mapper;
-        public DonationController(IDonationRepository donationService, IFundraiserRepository fundraiserService, 
+        public DonationController(IDonationRepository donationService, IFundraiserRepository fundraiserService,
                                 IDonorRepository donorService, IMapper mapper)
         {
             this.donationService = donationService ?? throw new ArgumentNullException(nameof(donationService));
@@ -26,28 +26,17 @@ namespace ZonerDonor.Controllers
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        //[BindProperty]
-        //public DonationDto  Donation { get; set; }
-      //  [BindProperty]
-    //    public IEnumerable<FundraiserDto> Fundraisers { get; set; }
-    public void fer(int? xx)
-        {
-
-        }
-
         public async Task<IActionResult> Index(Guid? id)
         {
             DonationCreateViewModel vm = new DonationCreateViewModel();
-         //   Donation = new DonationDto();
             vm.Donation = new DonationDto();
-            if (id.HasValue)// != Guid.Empty)
+            if (id.HasValue)
             {
                 vm.Donation.FundraiserId = id.Value;
             }
             else
             {
                 var results = await fundraiserService.GetFundraisersAsync();
-                //Fundraisers = mapper.Map<IEnumerable<FundraiserDto>>(results);
                 vm.Fundraisers = mapper.Map<IEnumerable<FundraiserDto>>(results)
                                         .Select(f => new SelectListItem { Text = f.Name, Value = f.Id.ToString() })
                                         .ToList();
@@ -56,7 +45,7 @@ namespace ZonerDonor.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(DonationCreateViewModel vm)//DonationDto donationDto)
+        public async Task<IActionResult> Create(DonationCreateViewModel vm)
         {
             if (vm == null)
             {
@@ -77,7 +66,7 @@ namespace ZonerDonor.Controllers
                 return RedirectToAction("DonateComplete");
             }
             return View(vm);
-             
+
         }
         public IActionResult DonateComplete()
         {
@@ -94,6 +83,5 @@ namespace ZonerDonor.Controllers
             }
             return donors.FirstOrDefault().Id;
         }
-
     }
 }

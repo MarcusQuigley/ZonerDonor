@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 using ZonerDonor.Entities;
 using ZonerDonor.Services;
 using Models = ZonerDonor.Core.Models;
@@ -50,15 +48,5 @@ namespace ZonerDonor.Controllers
              }
             return View(Fundraiser);
         }
-
-       
-
-        //[HttpPost]
-        //public IActionResult Create()
-        //{
-
-
-        //    return View();
-        //}
     }
 }
