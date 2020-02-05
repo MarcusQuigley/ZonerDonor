@@ -8,7 +8,7 @@ namespace ZonerDonor.Utils.Extensions
     {
         public static int RandomNumberLessThan(this int value)
         {
-            return new Random().Next(value - 1);
+            return new Random().Next(value );
         }
     }
 }

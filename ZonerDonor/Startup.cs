@@ -34,10 +34,14 @@ namespace ZonerDonor
             services.AddScoped<IFundraiserRepository, FundraiserRepository>();
             services.AddScoped<IDonorRepository, DonorRepository>();
             services.AddScoped<IDonationRepository, DonationRepository>();
-            services.AddHostedService<GenerateDonationsService>();
+            if (Configuration.GetSection("AutoDonations").GetValue<bool>("GenerateDonations"))
+            {
+                services.AddHostedService<GenerateDonationsService>();
+            }
+
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
-         }
+        }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
