@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using ZonerDonor.Services;
-using ZonerDonor.Services.MockRepos;
 
 namespace ZonerDonor
 {
@@ -22,7 +22,8 @@ namespace ZonerDonor
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<FundContext>(options => {
+            services.AddDbContext<FundContext>(options =>
+            {
                 var connString = Configuration.GetConnectionString("DbConnection");
                 options.UseSqlServer(connString);
             });
@@ -33,12 +34,16 @@ namespace ZonerDonor
             services.AddScoped<IFundraiserRepository, FundraiserRepository>();
             services.AddScoped<IDonorRepository, DonorRepository>();
             services.AddScoped<IDonationRepository, DonationRepository>();
+            if (Configuration.GetSection("AutoDonations").GetValue<bool>("GenerateDonations"))
+            {
+                services.AddHostedService<GenerateDonationsService>();
+            }
+
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
-           
         }
 
-         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -55,7 +60,7 @@ namespace ZonerDonor
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
+            logger.LogInformation("Configuring Pipeline");
         }
     }
 }
