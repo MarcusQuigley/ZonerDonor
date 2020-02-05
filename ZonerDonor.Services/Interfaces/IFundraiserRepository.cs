@@ -14,5 +14,6 @@ namespace ZonerDonor.Services
         void AddFundRaiser(Fundraiser fundraiser);
         Task UpdateFundTotalAsync(Guid fundId, decimal donationAmount);
         Task<bool> SaveChangesAsync();
+        Task<IEnumerable<Guid>> GetFundraiserIdsAsync();
     }
 }

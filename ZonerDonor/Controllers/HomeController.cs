@@ -4,25 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ZonerDonor.Entities;
 using ZonerDonor.Services;
 
 namespace ZonerDonor.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         readonly IFundraiserRepository fundraiserService;
-        readonly IMapper mapper;
-        public HomeController(IFundraiserRepository fundraiserService, IMapper mapper)
+        readonly IDonorRepository donorService;
+
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, IFundraiserRepository fundraiserService, IDonorRepository donorService) :
+            base(logger, mapper)
         {
+            this.donorService = donorService ?? throw new ArgumentNullException(nameof(donorService));
             this.fundraiserService = fundraiserService ?? throw new ArgumentNullException(nameof(fundraiserService));
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        } 
+        }
 
         public async Task<IActionResult> Index()
         {
             var funds = await fundraiserService.GetLatestFundraisersAsync();
-            return View(mapper.Map<IEnumerable<FundraiserDto>>(funds));
+            return View(Mapper.Map<IEnumerable<FundraiserDto>>(funds));
         }
     }
 }

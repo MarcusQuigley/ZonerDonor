@@ -35,7 +35,6 @@ namespace ZonerDonor.Services
             int count = await CountAsync();
             return await context.Fundraisers 
                                      .Skip(count.RandomNumberLessThan())
-                                     //.Take(1)
                                      .FirstAsync();
         }
  
@@ -72,5 +71,12 @@ namespace ZonerDonor.Services
         {
             return await context.Fundraisers.CountAsync();
         }
-     }
+
+        public async Task<IEnumerable<Guid>> GetFundraiserIdsAsync()
+        {
+            return await context.Fundraisers
+                                .Select(f=>f.Id)
+                                .ToArrayAsync();
+        }
+    }
 }

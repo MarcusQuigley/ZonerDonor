@@ -33,7 +33,7 @@ namespace ZonerDonor.Services
 
         public async Task<int> CountAsync()
         {
-            return await context.Fundraisers.CountAsync();
+            return await context.Donors.CountAsync();
         }
 
         public async Task<Donor> GetRandomDonorAsync()
@@ -48,6 +48,13 @@ namespace ZonerDonor.Services
         public async Task<bool> SaveChangesAsync()
         {
             return (await context.SaveChangesAsync() > 0);
+        }
+
+        public async Task<IEnumerable<Guid>> GetDonorIdsAsync()
+        {
+            return await context.Donors
+                                    .Select(d => d.Id)
+                                    .ToArrayAsync();
         }
     }
 }
