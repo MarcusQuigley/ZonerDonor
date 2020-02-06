@@ -26,6 +26,9 @@
             .build();
 
         connection.on("NewDonation", function (donation) {
+            console.info("Amount.." + donation.amount);
+            console.info("DonationDate.." + donation.donationDate);
+            console.info("DonationDate.." + donation.donor.name);
             var node = document.createElement("li");
             node.appendChild(document.createTextNode(donation.donor.name + " "));
             node.appendChild(document.createTextNode("$" + Number(donation.amount).toFixed(2)+ " "));
