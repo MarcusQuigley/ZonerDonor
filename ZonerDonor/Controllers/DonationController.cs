@@ -20,9 +20,9 @@ namespace ZonerDonor.Controllers
         readonly IDonorRepository donorService;
         readonly IMapper mapper;
         readonly IHubContext<ZonorHub> signalHub;
-        public DonationController(IDonationRepository donationService, 
+        public DonationController(IDonationRepository donationService,
                                     IFundraiserRepository fundraiserService,
-                                    IDonorRepository donorService, 
+                                    IDonorRepository donorService,
                                     IMapper mapper,
                                     IHubContext<ZonorHub> signalHub)
         {
@@ -40,8 +40,8 @@ namespace ZonerDonor.Controllers
             if (id.HasValue)
             {
                 vm.Donation.FundraiserId = id.Value;
-                var fundraiser =await fundraiserService.GetFundraiserAsync(id.Value);
-                vm.Fundraiser =  mapper.Map<FundraiserDto>(fundraiser);
+                var fundraiser = await fundraiserService.GetFundraiserAsync(id.Value);
+                vm.Fundraiser = mapper.Map<FundraiserDto>(fundraiser);
             }
             else
             {
@@ -54,7 +54,7 @@ namespace ZonerDonor.Controllers
         }
 
         [HttpPost]
-         public async Task<IActionResult> Create(DonationCreateViewModel vm)
+        public async Task<IActionResult> Create(DonationCreateViewModel vm)
         {
             if (vm == null)
             {

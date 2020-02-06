@@ -10,7 +10,7 @@ namespace ZonerDonor.Hubs
     public class ZonorHub : Hub
     {
         int connections;
-        
+
 
         public async Task PublishCreatedDonation(DonationDto donation)
         {
@@ -21,10 +21,19 @@ namespace ZonerDonor.Hubs
             await Clients.All.SendAsync("ReceiveNewDonation", donation);
         }
 
+        public async Task PublishCreateFundraiser(FundraiserDto fundraiser)
+        {
+            if (fundraiser == null)
+            {
+                throw new ArgumentNullException(nameof(fundraiser));
+            }
+            var connectionId = Context.ConnectionId;
+            await Clients.AllExcept(connectionId).SendAsync("ReceiveNewFundraiser", fundraiser);
+        }
         public override Task OnConnectedAsync()
         {
             connections += 1;
-            return base.OnConnectedAsync( );
+            return base.OnConnectedAsync();
         }
 
         public override Task OnDisconnectedAsync(Exception exception)

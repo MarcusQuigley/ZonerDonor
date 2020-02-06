@@ -17,28 +17,4 @@
         </div>
       <div id="status"></div>
     </div>
-<script>
-    let connection = null;
-
-    setupConnection = () => {
-        connection = new signalR.HubConnectionBuilder()
-            .withUrl("/zonorhub")
-            .build();
-
-        connection.on("NewDonation", function (donation) {
-            console.info("Amount.." + donation.amount);
-            console.info("DonationDate.." + donation.donationDate);
-            console.info("DonationDate.." + donation.donor.name);
-            var node = document.createElement("li");
-            node.appendChild(document.createTextNode(donation.donor.name + " "));
-            node.appendChild(document.createTextNode("$" + Number(donation.amount).toFixed(2)+ " "));
-            node.appendChild(document.createTextNode(donation.whenDonated));
-            document.getElementById("donationList").appendChild(node);
-        });
-
-        connection.start()
-            .catch(err => console.error(err.toString()));
-    }
-    setupConnection();
-
-</script>
+ 
