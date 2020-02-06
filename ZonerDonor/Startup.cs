@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using ZonerDonor.Hubs;
 using ZonerDonor.Services;
 using ZonerDonor.Services.MockRepos;
 
@@ -35,8 +36,8 @@ namespace ZonerDonor
             services.AddScoped<IDonationRepository, DonationRepository>();
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
-           
-        }
+            services.AddSignalR(configure => configure.EnableDetailedErrors=true);
+          }
 
          public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -54,6 +55,7 @@ namespace ZonerDonor
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ZonorHub>("/zonorhub");
             });
 
         }
