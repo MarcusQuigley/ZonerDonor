@@ -46,6 +46,7 @@ namespace ZonerDonor.Services
         public async Task<IEnumerable<Fundraiser>> GetLatestFundraisersAsync(int numberToGet = 3)
         {
             return await context.Fundraisers
+                                    .OrderByDescending(f=>f.CreatedDate)
                                     .Take(numberToGet)
                                     .ToArrayAsync();
         }

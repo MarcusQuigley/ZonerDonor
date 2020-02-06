@@ -1,13 +1,11 @@
 ﻿@model FundraiserDto
 
-<div>
-    <div class="col-sm-10 col-lg-10 col-md-10">
-        <div class="card">
-            <h2>
-                <a asp-controller="Fundraiser" asp-action="Detail" asp-route-id="@Model.Id">@Model.Name</a>
-            </h2>
-            <h4>@Model.CurrentTotal.ToString("c") raised of @Model.Amount.ToString("c") goal</h4>
-            <h5>Created on  @Model.CreatedDate.ToString("d")</h5>
-        </div>
+<div class="col-sm-10 col-lg-10 col-md-10">
+    <div class="card">
+        <h4>
+            <a asp-controller="Fundraiser" asp-action="Detail" asp-route-id="@Model.Id">@Model.Name</a>
+        </h4>
+        <h4>@Model.CurrentTotal.ToString("c") raised of @Model.Amount.ToString("c") goal</h4>
+        <h5>Created on  @Model.CreatedDate.ToString("d")</h5>
     </div>
 </div>

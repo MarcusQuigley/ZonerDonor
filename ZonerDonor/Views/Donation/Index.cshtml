@@ -1,5 +1,5 @@
 ﻿@model DonationCreateViewModel
-<h2>Creating a donation!</h2>
+
 
 <form method="post" class="form-horizontal" asp-action="Create">
     <input type="hidden" asp-for="Donation.FundraiserId" />
@@ -7,15 +7,19 @@
         var hasFundraisers = Model.Fundraisers != null;
     }
     <div class="form-group">
-            <if include-if="hasFundraisers">
-                <div>
-                    <label asp-for="Fundraisers" class="col-md-2 control-label"></label>
-                    <div class="col-md-4">
-                        <select asp-for="FundraiserId" asp-items="Model.Fundraisers" class="form-control"></select>
-                        <span asp-validation-for="Fundraisers" class="text-danger"></span>
-                    </div>
+        <if include-if="hasFundraisers">
+            <h2>Create a donation</h2>
+            <div>
+                <label asp-for="Fundraisers" class="col-md-2 control-label"></label>
+                <div class="col-md-4">
+                    <select asp-for="FundraiserId" asp-items="Model.Fundraisers" class="form-control"></select>
+                    <span asp-validation-for="Fundraisers" class="text-danger"></span>
                 </div>
-            </if>
+            </div>
+        </if>
+        <if include-if="!hasFundraisers">
+            <h2>Creating a donation for @Model.Fundraiser.Name</h2>
+        </if>
 
             <label asp-for="Donation.Amount" class="col-md-2 control-label"></label>
             <div class="col-md-4">

@@ -10,5 +10,6 @@ namespace ZonerDonor.ViewModels
         public DonationDto Donation { get; set; }
         public IList<SelectListItem> Fundraisers { get; set; }
         public Guid FundraiserId { get; set; }
+        public FundraiserDto Fundraiser { get; set; }
     }
 }
