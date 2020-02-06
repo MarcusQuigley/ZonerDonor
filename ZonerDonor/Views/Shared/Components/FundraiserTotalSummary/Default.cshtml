@@ -1,12 +1,44 @@
 ﻿@model FundTotalSummaryViewModel
-<div class="form">
-    <h3>@Model.Fundraiser.PercentComplete% of our goal has been reached</h3>
-    <h3>@Model.Donations.Count() donors have contributed</h3>
-    <div>
-        @foreach (var donation in Model.Donations)
-        {
-            <h4>@donation.DonorId</h4>
-            <h4>@donation.Amount.ToString("c")</h4><h4>@donation.DonationDate</h4>
-        }
+    <div class="form">
+        <h3>@Model.Fundraiser.PercentComplete% of our goal has been reached.</h3>
+        <h3>@Model.Donations.Count() donors have contributed</h3>
+        <div>
+            <ul id="donationList" class="donationList">
+                @foreach (var donation in Model.Donations)
+                {
+                    <li class="donation">
+                         @donation.Donor.Name 
+                         @donation.Amount.ToString("c") 
+                         @donation.WhenDonated 
+                    </li>
+
+                }
+            </ul>
+        </div>
+      <div id="status"></div>
     </div>
-</div>
+<script>
+    let connection = null;
+
+    setupConnection = () => {
+        connection = new signalR.HubConnectionBuilder()
+            .withUrl("/zonorhub")
+            .build();
+
+        connection.on("NewDonation", function (donation) {
+            console.info("Amount.." + donation.amount);
+            console.info("DonationDate.." + donation.donationDate);
+            console.info("DonationDate.." + donation.donor.name);
+            var node = document.createElement("li");
+            node.appendChild(document.createTextNode(donation.donor.name + " "));
+            node.appendChild(document.createTextNode("$" + Number(donation.amount).toFixed(2)+ " "));
+            node.appendChild(document.createTextNode(donation.whenDonated));
+            document.getElementById("donationList").appendChild(node);
+        });
+
+        connection.start()
+            .catch(err => console.error(err.toString()));
+    }
+    setupConnection();
+
+</script>

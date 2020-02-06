@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using ZonerDonor.Hubs;
 using ZonerDonor.Services;
 
 namespace ZonerDonor
@@ -41,7 +42,11 @@ namespace ZonerDonor
 
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            services.AddSignalR(configure => configure.EnableDetailedErrors=true);
+          }
         }
+
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
@@ -59,6 +64,7 @@ namespace ZonerDonor
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ZonorHub>("/zonorhub");
             });
             logger.LogInformation("Configuring Pipeline");
         }
