@@ -11,5 +11,6 @@ namespace ZonerDonor.Entities
         [Required]
         public decimal Amount { get; set; }
         public DateTimeOffset DonationDate { get; set; }
+        public DonorDto Donor { get; set; }
     }
 }

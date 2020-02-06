@@ -36,6 +36,7 @@ namespace ZonerDonor.Services
         {
             return await context.Donations
                                     .Where(d => d.FundraiserId == fundId)
+                                    .Include(d=>d.Donor)
                                     .ToArrayAsync();
         }
 

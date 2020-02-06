@@ -7,9 +7,9 @@
                 @foreach (var donation in Model.Donations)
                 {
                     <li class="donation">
-                        <h7>@donation.DonorId</h7>
+                        <h7>@donation.Donor.Name</h7>
                         <h6>@donation.Amount.ToString("c")</h6>
-                        <h5>@donation.DonationDate</h5>
+                         @donation.DonationDate 
                     </li>
 
                 }
