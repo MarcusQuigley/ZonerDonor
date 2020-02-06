@@ -44,7 +44,7 @@ namespace ZonerDonor
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
             services.AddSignalR(configure => configure.EnableDetailedErrors=true);
-          }
+          
         }
 
 
