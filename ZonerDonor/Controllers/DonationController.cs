@@ -40,6 +40,8 @@ namespace ZonerDonor.Controllers
             if (id.HasValue)
             {
                 vm.Donation.FundraiserId = id.Value;
+                var fundraiser =await fundraiserService.GetFundraiserAsync(id.Value);
+                vm.Fundraiser =  mapper.Map<FundraiserDto>(fundraiser);
             }
             else
             {
