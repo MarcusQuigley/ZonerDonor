@@ -18,7 +18,7 @@ namespace ZonerDonor.Hubs
             {
                 throw new ArgumentNullException(nameof(donation));
             }
-            await Clients.All.SendAsync("RecieveNewDonation", donation);
+            await Clients.All.SendAsync("ReceiveNewDonation", donation);
         }
 
         public override Task OnConnectedAsync()

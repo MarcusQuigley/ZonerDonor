@@ -52,14 +52,15 @@ namespace ZonerDonor.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(DonationCreateViewModel vm)
+         public async Task<IActionResult> Create(DonationCreateViewModel vm)
         {
             if (vm == null)
             {
                 throw new ArgumentNullException(nameof(vm));
             }
             vm.Donation.DonationDate = DateTimeOffset.Now;
-            vm.Donation.DonorId = await GetDonorId();
+            var donor = await GetDonor();
+            vm.Donation.DonorId = donor.Id;
             if (vm.Donation.FundraiserId == Guid.Empty)
             {
                 vm.Donation.FundraiserId = vm.FundraiserId;
@@ -71,7 +72,8 @@ namespace ZonerDonor.Controllers
                 donationService.AddDonation(donation);
                 await donationService.SaveChangesAsync();
                 await fundraiserService.UpdateFundTotalAsync(vm.Donation.FundraiserId, vm.Donation.Amount);
-                await signalHub.Clients.All.SendAsync("NewDonation");
+                vm.Donation.Donor = donor;
+                await signalHub.Clients.All.SendAsync("NewDonation", vm.Donation);
                 return RedirectToAction("DonateComplete");
             }
             return View(vm);
@@ -83,14 +85,14 @@ namespace ZonerDonor.Controllers
             return View();
         }
 
-        private async Task<Guid> GetDonorId()
+        private async Task<DonorDto> GetDonor()
         {
             var donors = await donorService.GetDonorsAsync();
             if (!donors.Any())
             {
                 throw new InvalidOperationException("No donors exist");
             }
-            return donors.FirstOrDefault().Id;
+            return mapper.Map<DonorDto>(donors.FirstOrDefault());
         }
     }
 }

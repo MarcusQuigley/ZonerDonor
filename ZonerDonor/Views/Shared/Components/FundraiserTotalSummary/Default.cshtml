@@ -3,17 +3,39 @@
         <h3>@Model.Fundraiser.PercentComplete% of our goal has been reached.</h3>
         <h3>@Model.Donations.Count() donors have contributed</h3>
         <div>
-            <ul>
+            <ul id="donationList" class="donationList">
                 @foreach (var donation in Model.Donations)
                 {
                     <li class="donation">
-                        <h7>@donation.Donor.Name</h7>
-                        <h6>@donation.Amount.ToString("c")</h6>
-                         @donation.DonationDate 
+                         @donation.Donor.Name 
+                         @donation.Amount.ToString("c") 
+                         @donation.WhenDonated 
                     </li>
 
                 }
             </ul>
         </div>
-      
+      <div id="status"></div>
     </div>
+<script>
+    let connection = null;
+
+    setupConnection = () => {
+        connection = new signalR.HubConnectionBuilder()
+            .withUrl("/zonorhub")
+            .build();
+
+        connection.on("NewDonation", function (donation) {
+            var node = document.createElement("li");
+            node.appendChild(document.createTextNode(donation.donor.name + " "));
+            node.appendChild(document.createTextNode("$" + Number(donation.amount).toFixed(2)+ " "));
+            node.appendChild(document.createTextNode(donation.whenDonated));
+            document.getElementById("donationList").appendChild(node);
+        });
+
+        connection.start()
+            .catch(err => console.error(err.toString()));
+    }
+    setupConnection();
+
+</script>
