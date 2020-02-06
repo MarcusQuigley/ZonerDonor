@@ -1,56 +1,20 @@
-﻿/*!
- * Start Bootstrap - Shop Homepage (http://startbootstrap.com/)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
- */
+﻿ 
 
 body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    /*background-image: url('/images/pattern.png');
-    background-repeat: repeat;*/
-    font-family: 'Source Sans Pro', sans-serif;
+    padding-top: 70px;  
+    font-family:    'Source Sans Pro', sans-serif;
 }
 
 
-.slide-image {
-    width: 100%;
-}
-
-.carousel-holder {
-    margin-bottom: 30px;
-}
-
-.carousel-control,
-.item {
-    border-radius: 4px;
-}
 
 .caption {
     height: 130px;
     overflow: hidden;
 }
 
-    .caption h4 {
-        white-space: nowrap;
-    }
-
-.thumbnail img {
-    width: 100%;
+.caption h4 {
+    white-space: nowrap;
 }
-
-.addToCart {
-    padding-right: 10px;
-    padding-left: 10px;
-}
-
-.thumbnail {
-    padding: 0;
-}
-
-    .thumbnail .caption-full {
-        padding: 9px;
-        color: #333;
-    }
 
 footer {
     margin: 50px 0;
@@ -65,10 +29,10 @@ footer {
 }
 
 .navbar {
-    float:top;
+    float:none;
     background-image: none;
     width: 100%;
-    /*height: 30px;*/
+ 
     display: inline-block;
 }
 
@@ -86,10 +50,6 @@ footer {
     font-size: 1.2em;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     color: white;
-}
-
-.carousel .item {
-    height: 400px;
 }
 
 .item img {
@@ -110,21 +70,58 @@ footer {
 }
 
 li {
-    float: left;
     display: inline-block;
+ 
 }
 
+.donation {
+    display: block;
+}
+
+
 a:link, a:visited {
-    /*width: 182.8px;*/
-    /*line-height: 30px;*/
     padding-top: 5px;
     padding-right: 5px;
     padding-bottom: 4px;
     padding-left: 5px;
     text-decoration: none;
     text-align: center;
-    /*background-color: #006b00;*/
-    /*color: white;*/
-    /*font-weight: bold;*/
-    /*float: left;*/
 }
+
+
+/* UNNEEDED*/
+
+/*.thumbnail img {
+    width: 100%;
+}*/
+
+/*.addToCart {
+    padding-right: 10px;
+    padding-left: 10px;
+}*/
+
+/*.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}*/
+
+/*.carousel .item {
+    height: 400px;
+}*/
+
+/*.slide-image {
+    width: 100%;
+}
+
+.carousel-holder {
+    margin-bottom: 30px;
+}
+
+.carousel-control,
+.item {
+    border-radius: 4px;
+}*/
