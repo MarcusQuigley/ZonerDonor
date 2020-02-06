@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZonerDonor.Core.Models;
+using ZonerDonor.Utils.Extensions;
 
 namespace ZonerDonor.Services
 {
@@ -29,9 +31,30 @@ namespace ZonerDonor.Services
             return await context.Donors.ToArrayAsync();
         }
 
+        public async Task<int> CountAsync()
+        {
+            return await context.Donors.CountAsync();
+        }
+
+        public async Task<Donor> GetRandomDonorAsync()
+        {
+            int count = await CountAsync();
+            return await context.Donors
+                                     .Skip(count.RandomNumberLessThan())
+                                      //.Take(1)
+                                      .FirstAsync();
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             return (await context.SaveChangesAsync() > 0);
+        }
+
+        public async Task<IEnumerable<Guid>> GetDonorIdsAsync()
+        {
+            return await context.Donors
+                                    .Select(d => d.Id)
+                                    .ToArrayAsync();
         }
     }
 }

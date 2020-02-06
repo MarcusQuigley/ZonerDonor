@@ -7,15 +7,12 @@ using ZonerDonor.Core.Models;
 
 namespace ZonerDonor.Services.MockRepos
 {
-    public class MockFundraiserRepository : IFundraiserRepository 
+    public class MockFundraiserRepository : IFundraiserRepository
     {
         IList<Fundraiser> Fundraisers { get; set; }
-        FundContext dbContext;
 
         public MockFundraiserRepository(FundContext dbContext)
         {
-            // this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-
             Fundraisers = new List<Fundraiser> {
                 new Fundraiser{ Id=Guid.NewGuid(), Name = "Pauls Extension", Amount=10000, CreatedDate=DateTimeOffset.Now.AddDays(-3)},
                 new Fundraiser{ Id=Guid.NewGuid(), Name = "Joes Preop", Amount=23000, CreatedDate=DateTimeOffset.Now},
@@ -65,10 +62,17 @@ namespace ZonerDonor.Services.MockRepos
                 throw new ArgumentException("Fund does not exist");
             }
             fundraiser.UpdateTotal(donationAmount);
-         //   context.Fundraisers.Update(fundraiser);
-           
+         }
+
+        public Task<Fundraiser> GetRandomFundraiserAsync()
+        {
+            throw new NotImplementedException();
         }
-
-
+        public async Task<IEnumerable<Guid>> GetFundraiserIdsAsync()
+        {
+            return Fundraisers
+                                .Select(f => f.Id)
+                                .ToArray();
+        }
     }
 }
